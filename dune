@@ -1,0 +1,22 @@
+; cross-compiled GMP
+(library
+ (name gmp)
+ (public_name gmp)
+ ;(c_library_flags "-lgmp")
+ (install_c_headers gmp)
+ (foreign_archives gmp)
+ (no_dynlink)
+)
+
+(rule 
+ (targets gmp-6.2.0.tar.xz)
+ (action 
+  (run wget https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz))
+)
+
+(rule 
+ (targets gmp.h libgmp.a)
+ (deps gmp-6.2.0.tar.xz)
+ (action 
+  (run ./build.sh %{ocaml-config:host} "%{ocaml-config:ocamlc_cflags}")
+))
