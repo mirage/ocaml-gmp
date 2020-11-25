@@ -4,7 +4,6 @@
  (public_name gmp)
  (install_c_headers gmp)
  (foreign_archives gmp)
- (no_dynlink)
 )
 
 (rule 
@@ -15,8 +14,8 @@
 )
 
 (rule 
- (targets gmp.h libgmp.a)
+ (targets gmp.h libgmp.a dllgmp.so)
  (deps gmp-6.2.0.tar.xz)
  (action 
-  (run ./build.sh %{ocaml-config:host} "%{ocaml-config:ocamlc_cflags}")
+  (run ./build.sh %{ocaml-config:host} "%{ocaml-config:ocamlc_cflags}" %{ocaml-config:supports_shared_libraries})
 ))
