@@ -2,7 +2,6 @@
 (library
  (name gmp)
  (public_name gmp)
- ;(c_library_flags "-lgmp")
  (install_c_headers gmp)
  (foreign_archives gmp)
  (no_dynlink)

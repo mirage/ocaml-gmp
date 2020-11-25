@@ -1,4 +1,4 @@
 .merlin
 _build
-dune-project
 gmp-6.2.0.tar.xz
+*.install
