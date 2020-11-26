@@ -7,15 +7,8 @@
 )
 
 (rule 
- (targets gmp-6.2.0.tar.xz)
- (mode fallback)
- (action 
-  (run wget https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz))
-)
-
-(rule 
  (targets gmp.h libgmp.a dllgmp.so)
- (deps gmp-6.2.0.tar.xz)
+ (deps gmp-6.2.1.tar.xz)
  (action 
   (run ./build.sh %{ocaml-config:host} "%{ocaml-config:ocamlc_cflags}" %{ocaml-config:supports_shared_libraries})
 ))
