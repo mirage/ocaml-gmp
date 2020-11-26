@@ -2,8 +2,8 @@
 
 set -e
 
-tar -xf gmp-6.2.0.tar.xz
-cd gmp-6.2.0
+tar -xf gmp-6.2.1.tar.xz
+cd gmp-6.2.1
 
 if [ "$3" = "false" ]; then
     SHARED_LIBRARY_ARG="--disable-shared"
