@@ -1,20 +1,23 @@
-
-(library 
+(library
  (name dummy)
- (foreign_stubs (language c) (include_dirs (lib gmp)))
+ (foreign_stubs
+  (language c)
+  (include_dirs
+   (lib gmp)))
  (libraries gmp)
- (modules dummy)
-)
+ (modules dummy))
 
 (executable
  (name test)
  (libraries dummy)
- (modules test)
-)
+ (modules test))
 
 (rule
- (with-stdout-to test.output (run ./test.exe)))
+ (with-stdout-to
+  test.output
+  (run ./test.exe)))
 
 (rule
  (alias runtest)
- (action (diff test.expected test.output)))
+ (action
+  (diff test.expected test.output)))
