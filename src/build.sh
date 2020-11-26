@@ -19,4 +19,6 @@ cp gmp.h ..
 cp .libs/libgmp.a ..
 if [ "$3" = "true" ]; then
     cp .libs/libgmp.so ../dllgmp.so
+else
+    touch ../dllgmp.so
 fi
