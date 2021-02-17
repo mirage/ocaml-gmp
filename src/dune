@@ -6,6 +6,11 @@
  (install_c_headers gmp)
  (foreign_archives gmp))
 
+(install
+ (files
+  (dllgmp.so as libgmp.so))
+ (section lib))
+
 (rule
  (targets gmp.h libgmp.a dllgmp.so)
  (deps gmp-6.2.1.tar.xz build.sh)
