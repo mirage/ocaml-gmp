@@ -17,7 +17,7 @@
  (action
   (with-stdout-to
    build.log
-   (run sh ./build.sh %{ocaml-config:c_compiler} %{ocaml-config:host}
+   (run sh ./build.sh "%{ocaml-config:c_compiler}" "%{ocaml-config:host}"
      "%{ocaml-config:ocamlc_cflags}"
      %{ocaml-config:supports_shared_libraries}))))
 
