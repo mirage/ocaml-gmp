@@ -11,9 +11,9 @@ fi
 
 ac_cv_func_obstack_vprintf=no \
 ac_cv_func_localeconv=no \
-./configure --host="$2" CC=$1 CFLAGS="$3 -Wl,--unresolved-symbols=ignore-in-object-files" $SHARED_LIBRARY_ARG
+./configure --host="$2" CC="$1" CPPFLAGS="$3" CFLAGS="$3 -Wl,--unresolved-symbols=ignore-in-object-files" $SHARED_LIBRARY_ARG
 
-make -j%{jobs}% CFLAGS="$3"
+make -j%{jobs}% CFLAGS="$3" CPPFLAGS="$3"
 
 cp gmp.h ..
 cp .libs/libgmp.a ..
