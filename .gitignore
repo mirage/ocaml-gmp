@@ -1,4 +1,3 @@
 .merlin
 _build
-gmp-6.2.0.tar.xz
 *.install
