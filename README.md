@@ -4,7 +4,7 @@ More info on GMP: https://gmplib.org/
 
 To use GMP in a _cross-compilation_-friendly way, simply add this library in 
 your library dependencies and make sure it is locally fetched using the 
-`opam-monorepo` plugin (https://github.com/ocamllabs/duniverse).
+`opam-monorepo` plugin (https://github.com/ocamllabs/opam-monorepo).
 
 Example Dune configuration:
 ```
@@ -14,3 +14,6 @@ Example Dune configuration:
  ...
 )
 ```
+
+This configuration enables the inclusion of `gmp.h` and the usage of `gmp` functions, 
+even in a cross-compiled environment such as MirageOS.
