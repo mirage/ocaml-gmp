@@ -3,11 +3,11 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  Host-Freestanding:
+  Host:
     strategy:
       matrix:
-        operating-system: [macos-latest]
-        ocaml-version: [4.13.1]
+        operating-system: [ubuntu-latest,macos-latest]
+        ocaml-version: [4.12.1,4.13.1]
     runs-on: ${{ matrix.operating-system }}
     steps:
     - uses: actions/checkout@v2
@@ -23,3 +23,25 @@ jobs:
       run: opam exec -- dune build @install
     - name: Running tests
       run: opam exec -- dune runtest
+  Cross-Freestanding:
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        ocaml-version: [4.13.1]
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: ${{ matrix.ocaml-version }}
+        dune-cache: true
+        opam-local-packages: |
+          !gmp.opam
+    - name: Add mirage-dev repository
+      run: opam repo add mirage-dev git+https://github.com/mirage/mirage-dev.git#master
+    - name: Install ocaml-freestanding
+      run: opam depext -yit ocaml-freestanding
+    - name: Compiling example project
+      run: opam exec -- dune build @install --workspace dune-workspace.freestanding
+    - name: Running tests
+      run: opam exec -- dune runtest --workspace dune-workspace.freestanding

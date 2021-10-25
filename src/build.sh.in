@@ -4,7 +4,7 @@ set -e
 
 tar -xf gmp-6.2.1.tar.xz
 cd gmp-6.2.1
-sed -i --regexp-extended 's/gmp_compile=(.*)conftest.c/gmp_compile=\1conftest.c $LIBS/' configure
+sed -i.bak 's/gmp_compile=\(.*\)conftest.c/gmp_compile=\1conftest.c $LIBS/' configure
 
 if [ "$4" = "false" ]; then
     SHARED_LIBRARY_ARG="--disable-shared"
@@ -22,7 +22,8 @@ make SUBDIRS="mpn mpz mpq mpf"\
 cp gmp.h ..
 cp .libs/libgmp.a ..
 if [ "$4" = "true" ]; then
-    cp .libs/libgmp.so ../dllgmp.so
+    # depending on if the host is macos or not
+    cp .libs/libgmp.so ../dllgmp.so || cp .libs/libgmp.dylib ../dllgmp.so 
 else
     touch ../dllgmp.so
 fi
