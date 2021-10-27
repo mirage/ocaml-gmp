@@ -4,7 +4,8 @@ set -e
 
 tar -xf gmp-6.2.1.tar.xz
 cd gmp-6.2.1
-sed -i.bak 's/gmp_compile=\(.*\)conftest.c/gmp_compile=\1conftest.c $LIBS/' configure
+sed -i.bak 's/\(gmp_compile=.*conftest.c\)/\1 $LIBS/' configure
+sed -i.bak 's/\(gmp_compile="\($HOST_CC\|$i\|$CC_FOR_BUILD\).*conftest.c\) $LIBS/\1/' configure
 
 if [ "$4" = "false" ]; then
     SHARED_LIBRARY_ARG="--disable-shared"
