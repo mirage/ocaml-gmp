@@ -1,4 +1,5 @@
 #include <caml/mlvalues.h>
+#include <stdio.h>
 #include <gmp.h>
 
 value caml_compute(value unit) {
