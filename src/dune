@@ -23,8 +23,9 @@
      "%{ocaml-config:native_c_libraries}"))))
 
 (rule
- (targets build.sh)
+ (target build.sh)
  (deps build.sh.in)
  (mode fallback)
  (action
-  (run opam config subst "build.sh")))
+  (bash
+    "CORES=`(which nproc > /dev/null 2>&1 && nproc) || sysctl -n hw.ncpu 2> /dev/null || echo 1`; sed \"s/\%{jobs}%/$CORES/g\" %{target}.in > %{target}")))
