@@ -2,10 +2,14 @@
 
 set -e
 
-tar -xf gmp-6.2.1.tar.xz
+xzcat gmp-6.2.1.tar.xz | tar -xf -
 cd gmp-6.2.1
-sed -i -e 's/\(gmp_compile="$cc .*conftest.c\)/\1 $LIBS/g' configure
-sed -i -e 's/\(gmp_compile="$CC .*conftest.c\)/\1 $LIBS/g' configure
+sed \
+  -e 's/\(gmp_compile="$cc .*conftest.c\)/\1 $LIBS/g' \
+  -e 's/\(gmp_compile="$CC .*conftest.c\)/\1 $LIBS/g' \
+  configure > configure.tmp
+mv configure.tmp configure
+chmod +x configure
 
 if [ "$5" = "false" ]; then
     SHARED_LIBRARY_ARG="--disable-shared"
@@ -30,8 +34,16 @@ make SUBDIRS="mpn mpz mpq mpf"\
 cp gmp.h ..
 cp .libs/libgmp.a ..
 if [ "$5" = "true" ]; then
+    # on OpenBSD the synlink libgmp.so does not exist by default for some reason
+    libgmp=.libs/libgmp.so
+    for f in .libs/libgmp.so.* ; do
+      if ! test -L "$f" ; then
+        libgmp=$f
+        break
+      fi
+    done
     # depending on if the host is macos or not
-    cp .libs/libgmp.so ../dllgmp.so || cp .libs/libgmp.dylib ../dllgmp.so 
+    cp "$libgmp" ../dllgmp.so || cp .libs/libgmp.dylib ../dllgmp.so
 else
     touch ../dllgmp.so
 fi
