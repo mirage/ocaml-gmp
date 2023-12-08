@@ -38,7 +38,7 @@ jobs:
         opam-local-packages: |
           !gmp.opam
     - name: Pin ocaml-solo5
-      run: opam pin add ocaml-solo5 https://github.com/mirage/ocaml-solo5.git#fix-config-about-cross
+      run: opam pin add -yn ocaml-solo5 https://github.com/mirage/ocaml-solo5.git
     - name: Add mirage-dev repository
       run: opam repo add mirage-dev git+https://github.com/mirage/mirage-dev.git#master
     - name: Install ocaml-solo5
