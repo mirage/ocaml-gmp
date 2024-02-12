@@ -18,9 +18,6 @@ fi
 # $5 => supports_shared_libraries
 # $6 => native_c_libraries
 
-echo "ac_cv_func_obstack_vprintf=no ac_cv_func_localeconv=no ./configure --host='$3' --build='$2' CC='$1' CPPFLAGS='$4' LIBS='$6' $SHARED_LIBRARY_ARG"
-echo "make SUBDIRS='mpn mpz mpq mpf' PRINTF_OBJECTS= SCANF_OBJECTS CFLAGS+='-Werror=implicit-function-declaration' CPPFLAGS='$3'"
-
 ac_cv_func_obstack_vprintf=no \
 ac_cv_func_localeconv=no \
 ./configure --host="$3" --build="$2" CC="$1" CPPFLAGS="$4" LIBS="$6" $SHARED_LIBRARY_ARG
