@@ -1,3 +1,8 @@
+## 6.2.1-5
+
+- Fix the cross-compilation for `aarch64` (@dinosaure, @shym, #22)
+- Fix the compilation on OpenBSD (@kit-ty-kate, #22)
+
 ## 6.2.1-4
 
 - Build system: when used in a monorepo, do not invoke `opam` to figure out the
