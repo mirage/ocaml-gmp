@@ -7,11 +7,11 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest,macos-latest]
-        ocaml-version: [4.12.1,4.13.1]
+        ocaml-version: [4.12.1,4.13.1,4.14.2,5.3.0]
     runs-on: ${{ matrix.operating-system }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: ocaml/setup-ocaml@v2
+    - uses: actions/checkout@v4
+    - uses: ocaml/setup-ocaml@v3
       with:
         ocaml-compiler: ${{ matrix.ocaml-version }}
         dune-cache: true
@@ -27,11 +27,11 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        ocaml-version: [4.13.1]
+        ocaml-version: [5.3.0]
     runs-on: ${{ matrix.operating-system }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: ocaml/setup-ocaml@v2
+    - uses: actions/checkout@v4
+    - uses: ocaml/setup-ocaml@v3
       with:
         ocaml-compiler: ${{ matrix.ocaml-version }}
         dune-cache: true
