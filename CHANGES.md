@@ -1,3 +1,8 @@
+## 6.3.0
+
+- Upgrade to GMP 6.3.0 and add a patch for GCC 15 (@dinosaure, #25)
+- Fix the CI (@dinosaure, #26)
+
 ## 6.2.1-5
 
 - Fix the cross-compilation for `aarch64` (@dinosaure, @shym, #22)
