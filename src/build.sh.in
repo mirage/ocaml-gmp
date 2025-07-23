@@ -2,13 +2,14 @@
 
 set -e
 
-xzcat gmp-6.2.1.tar.xz | tar -xf -
-cd gmp-6.2.1
+xzcat gmp-6.3.0.tar.xz | tar -xf -
+cd gmp-6.3.0
 sed \
   -e 's/\(gmp_compile="$cc .*conftest.c\)/\1 $LIBS/g' \
   -e 's/\(gmp_compile="$CC .*conftest.c\)/\1 $LIBS/g' \
   configure > configure.tmp
 mv configure.tmp configure
+patch -p1 configure ../gcc.15.patch
 chmod +x configure
 
 if [ "$5" = "false" ]; then
@@ -24,7 +25,7 @@ fi
 
 ac_cv_func_obstack_vprintf=no \
 ac_cv_func_localeconv=no \
-./configure --host="$3" --build="$2" CC="$1" CPPFLAGS="$4" LIBS="$6" $SHARED_LIBRARY_ARG
+./configure --host="$3" --build="$2" ABI=64 CC="$1" CPPFLAGS="$4" LIBS="$6" $SHARED_LIBRARY_ARG
 
 make SUBDIRS="mpn mpz mpq mpf"\
     -j%{jobs}% \

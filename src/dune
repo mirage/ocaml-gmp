@@ -13,7 +13,7 @@
 
 (rule
  (targets gmp.h libgmp.a dllgmp.so)
- (deps gmp-6.2.1.tar.xz build.sh)
+ (deps gmp-6.3.0.tar.xz build.sh gcc.15.patch)
  (action
   (with-stdout-to
    build.log
