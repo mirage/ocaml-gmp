@@ -12,26 +12,25 @@ mv configure.tmp configure
 
 cc_maybe_gcc()
 {
-    ${CC} -dM -E - </dev/null | \
-        grep -Eq '^#define __GNUC__ ([4-9]$|[1-9][0-9]+$)'
+    $1 -dM -E - </dev/null | grep -Eq '^#define __GNUC__ ([4-9]$|[1-9][0-9]+$)'
 }
 
 cc_is_clang()
 {
-    ${CC} -dM -E - </dev/null | grep -Eq '^#define __clang__ 1$'
+    $1 -dM -E - </dev/null | grep -Eq '^#define __clang__ 1$'
 }
 
 cc_is_gcc()
 {
-    cc_maybe_gcc && ! cc_is_clang
+    cc_maybe_gcc $1 && ! cc_is_clang $1
 }
 
-cc_version=$(${CC} -dumpversion)
+cc_version=$($1 -dumpversion)
 cc_major=$(echo "$cc_version" | cut -d '.' -f 1)
 if [ -z "$cc_major" ]; then
     die "Impossible to recognize the version of cc: ${cc_version}"
 fi
-if cc_is_gcc; then
+if cc_is_gcc $1; then
     if [ "$cc_major" -ge 15 ]; then
         patch -p1 configure ../gcc.15.patch
     fi
@@ -62,7 +61,7 @@ make SUBDIRS="mpn mpz mpq mpf"\
 cp gmp.h ..
 cp .libs/libgmp.a ..
 if [ "$5" = "true" ]; then
-    # on OpenBSD the synlink libgmp.so does not exist by default for some reason
+    # on OpenBSD the symlink libgmp.so does not exist by default for some reason
     libgmp=.libs/libgmp.so
     for f in .libs/libgmp.so.* ; do
       if ! test -L "$f" ; then
