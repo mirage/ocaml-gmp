@@ -1,3 +1,8 @@
+## 6.3.0-1
+
+- DragonFly BSD support (#32, requested by @mneumann, solved in #33)
+- only apply patch for GCC 15 on GCC15+ (@hannesm #33)
+
 ## 6.3.0
 
 - Upgrade to GMP 6.3.0 and add a patch for GCC 15 (@dinosaure, #25)
