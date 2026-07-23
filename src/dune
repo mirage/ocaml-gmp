@@ -11,6 +11,11 @@
   (dllgmp.so as libgmp.so))
  (section lib))
 
+(install
+ (section lib_root)
+ (files
+  (gmp.pc as pkgconfig/gmp.pc)))
+
 (rule
  (targets gmp.h libgmp.a dllgmp.so)
  (deps gmp-6.3.0.tar.xz build.sh gcc.15.patch)
@@ -29,3 +34,10 @@
  (action
   (bash
     "CORES=`(which nproc > /dev/null 2>&1 && nproc) || sysctl -n hw.ncpu 2> /dev/null || echo 1`; sed \"s/\%{jobs}%/$CORES/g\" %{target}.in > %{target}")))
+
+(rule
+ (target gmp.pc)
+ (deps gmp.pc.in)
+ (mode fallback)
+ (action
+  (bash "sed \"s/\%{version}%/6.3.0/g\" %{target}.in > %{target}")))
