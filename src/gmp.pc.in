@@ -1,0 +1,9 @@
+prefix=${pcfiledir}/../gmp
+includedir=${prefix}
+libdir=${prefix}
+
+Name: GMP
+Description: GNU Multiple Precision Arithmetic Library
+Version: %{version}%
+Libs: -L${libdir} -lgmp
+Cflags: -I${includedir}
